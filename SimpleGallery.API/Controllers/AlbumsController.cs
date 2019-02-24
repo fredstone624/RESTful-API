@@ -39,7 +39,17 @@ namespace SimpleGallery.API.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
             }
 
-            var category = _mapper.Map<SaveAlbumResource, Album>(resource);
+            var albums = _mapper.Map<SaveAlbumResource, Album>(resource);
+
+            var result = await _albumService.SaveAsync(albums);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            var albumResource = _mapper.Map<Album, AlbumResource>(result.Value);
+            return Ok(albumResource);
         }
     }
 }

@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using SimpleGallery.API.Domain.Models;
+using SimpleGallery.API.Resources;
 
 namespace SimpleGallery.API.Mapping
 {
-    public class ResourceToModelProfile
+    public class ResourceToModelProfile : Profile
     {
+        public ResourceToModelProfile()
+        {
+            CreateMap<SaveAlbumResource, Album>();
+        }
     }
 }

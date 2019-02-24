@@ -18,5 +18,10 @@ namespace SimpleGallery.API.Persistence.Repositories
         {
             return await _context.Albums.ToListAsync();
         }
+
+        public async Task AddAsync(Album value)
+        {
+            await _context.Albums.AddAsync(value);
+        }
     }
 }
