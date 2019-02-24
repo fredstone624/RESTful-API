@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleGallery.API.Services
 {
-    public class AlbumService : IAlbumService
+    public class AlbumService : IService<Album>
     {
         private readonly IRepository<Album> _albumRepository;
         private readonly IUnitOfWork _unitOfWork;

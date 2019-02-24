@@ -1,6 +1,7 @@
 ﻿using SimpleGallery.API.Domain.Models;
 using SimpleGallery.API.Domain.Repositories;
 using SimpleGallery.API.Domain.Services;
+using SimpleGallery.API.Domain.Services.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SimpleGallery.API.Services
 {
-    public class ImageService : IImageService
+    public class ImageService : IService<Image>
     {
         private readonly IRepository<Image> _imageRepository;
 
@@ -20,6 +21,11 @@ namespace SimpleGallery.API.Services
         public Task<IEnumerable<Image>> ListAsync()
         {
             return _imageRepository.ListAsync();
+        }
+
+        public Task<SaveResponse<Image>> SaveAsync(Image value)
+        {
+            throw new NotImplementedException();
         }
     }
 }

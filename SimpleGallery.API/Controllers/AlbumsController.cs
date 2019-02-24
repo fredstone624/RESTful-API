@@ -14,10 +14,10 @@ namespace SimpleGallery.API.Controllers
     [ApiController]
     public class AlbumsController : ControllerBase
     {
-        private readonly IAlbumService _albumService;
+        private readonly IService<Album> _albumService;
         private readonly IMapper _mapper;
 
-        public AlbumsController(IAlbumService albumService, IMapper mapper)
+        public AlbumsController(IService<Album> albumService, IMapper mapper)
         {
             _albumService = albumService;
             _mapper = mapper;

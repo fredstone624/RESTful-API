@@ -13,9 +13,9 @@ namespace SimpleGallery.API.Controllers
     [ApiController]
     public class ImagesController : ControllerBase
     {
-        private readonly IImageService _imageService;
+        private readonly IService<Image> _imageService;
 
-        public ImagesController(IImageService imageService)
+        public ImagesController(IService<Image> imageService)
         {
             _imageService = imageService;
         }
