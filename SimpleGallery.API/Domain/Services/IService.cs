@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 
 namespace SimpleGallery.API.Domain.Services
 {
-    public interface IService<T>
-        where T : class
+    public interface IService<Tval, Tkey>
+        where Tval : class
     {
-        Task<IEnumerable<T>> ListAsync();
-        Task<SaveResponse<T>> SaveAsync(T value);
+        Task<IEnumerable<Tval>> ListAsync();
+        Task<SaveResponse<Tval>> SaveAsync(Tval value);
+        Task<SaveResponse<Tval>> UpdateAsync(Tkey id, Tval value);
     }
 }

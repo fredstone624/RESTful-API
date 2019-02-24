@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SimpleGallery.API.Services
 {
-    public class ImageService : IService<Image>
+    public class ImageService : IService<Image, string>
     {
         private readonly IRepository<Image, string> _imageRepository;
 
@@ -24,6 +24,11 @@ namespace SimpleGallery.API.Services
         }
 
         public Task<SaveResponse<Image>> SaveAsync(Image value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SaveResponse<Image>> UpdateAsync(string id, Image value)
         {
             throw new NotImplementedException();
         }

@@ -32,13 +32,13 @@ namespace SimpleGallery.API
             });
 
             services.AddScoped<IRepository<Album, string>, AlbumRepository>();
-            services.AddScoped<IService<Album>, AlbumService>();
+            services.AddScoped<IService<Album, string>, AlbumService>();
 
             services.AddScoped<IRepository<Photo, string>, PhotoRepository>();
-            services.AddScoped<IService<Photo>, PhotoService>();
+            services.AddScoped<IService<Photo, string>, PhotoService>();
 
             services.AddScoped<IRepository<Image, string>, ImageRepository>();
-            services.AddScoped<IService<Image>, ImageService>();
+            services.AddScoped<IService<Image, string>, ImageService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

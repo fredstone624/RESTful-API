@@ -24,14 +24,14 @@ namespace SimpleGallery.API.Persistence.Repositories
             await _context.Albums.AddAsync(value);
         }
 
-        public Task<Album> FindByIdAsync(string id)
+        public async Task<Album> FindByIdAsync(string id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Albums.FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
         public void Update(Album value)
         {
-            throw new System.NotImplementedException();
+            _context.Albums.Update(value);
         }
     }
 }

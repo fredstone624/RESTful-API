@@ -19,19 +19,19 @@ namespace SimpleGallery.API.Persistence.Repositories
             return await _context.Photos.ToListAsync();
         }
 
-        public Task AddAsync(Photo value)
+        public async Task AddAsync(Photo value)
         {
-            throw new System.NotImplementedException();
+            await _context.Photos.AddAsync(value);
         }
 
-        public Task<Photo> FindByIdAsync(string id)
+        public async Task<Photo> FindByIdAsync(string id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Photos.FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
         public void Update(Photo value)
         {
-            throw new System.NotImplementedException();
+            _context.Photos.Update(value);
         }
     }
 }

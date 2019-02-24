@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleGallery.API.Services
 {
-    public class AlbumService : IService<Album>
+    public class AlbumService : IService<Album, string>
     {
         private readonly IRepository<Album, string> _albumRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -37,6 +37,11 @@ namespace SimpleGallery.API.Services
             {
                 return new SaveResponse<Album>($"An error occurred when saving the album: {ex.Message}");
             }
+        }
+
+        public Task<SaveResponse<Album>> UpdateAsync(string id, Album value)
+        {
+            throw new NotImplementedException();
         }
     }
 }
