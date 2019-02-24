@@ -18,30 +18,73 @@ namespace SimpleGallery.API.Services
             _albumRepository = albumRepository;
             _unitOfWork = unitOfWork;
         }
-        
+
         public Task<IEnumerable<Album>> ListAsync()
         {
             return _albumRepository.ListAsync();
         }
 
-        public async Task<SaveResponse<Album>> SaveAsync(Album album)
+        public async Task<Response<Album>> SaveAsync(Album album)
         {
             try
             {
                 await _albumRepository.AddAsync(album);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveResponse<Album>(album);
+                return new Response<Album>(album);
             }
             catch (Exception ex)
             {
-                return new SaveResponse<Album>($"An error occurred when saving the album: {ex.Message}");
+                return new Response<Album>($"An error occurred when saving the album: {ex.Message}");
             }
         }
 
-        public Task<SaveResponse<Album>> UpdateAsync(string id, Album value)
+        public async Task<Response<Album>> UpdateAsync(string id, Album value)
         {
-            throw new NotImplementedException();
+            var existingAlbum = await _albumRepository.FindByIdAsync(id);
+
+            if (existingAlbum == null)
+            {
+                return new Response<Album>("Albums not found");
+            }
+
+            existingAlbum.Name = value.Name;
+            existingAlbum.Description = value.Description;
+            existingAlbum.NumberOfVisitor = value.NumberOfVisitor;
+
+            try
+            {
+                _albumRepository.Update(existingAlbum);
+                await _unitOfWork.CompleteAsync();
+
+                return new Response<Album>(existingAlbum);
+            }
+            catch (Exception ex)
+            {
+                return new Response<Album>($"An error occurred when updating the album: {ex.Message}");
+            }
+        }
+
+        public async Task<Response<Album>> DeleteAsync(string id)
+        {
+            var existingAlbum = await _albumRepository.FindByIdAsync(id);
+
+            if (existingAlbum == null)
+            {
+                return new Response<Album>("Album not found");
+            }
+
+            try
+            {
+                _albumRepository.Remove(existingAlbum);
+                await _unitOfWork.CompleteAsync();
+
+                return new Response<Album>(existingAlbum);
+            }
+            catch (Exception ex)
+            {
+                return new Response<Album>($"An error occurred when deleting the album: {ex.Message}");
+            }
         }
     }
 }

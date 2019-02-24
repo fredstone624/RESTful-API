@@ -14,10 +14,10 @@ namespace SimpleGallery.API.Controllers
     [ApiController]
     public class AlbumsController : ControllerBase
     {
-        private readonly IService<Album> _albumService;
+        private readonly IService<Album, string> _albumService;
         private readonly IMapper _mapper;
 
-        public AlbumsController(IService<Album> albumService, IMapper mapper)
+        public AlbumsController(IService<Album, string> albumService, IMapper mapper)
         {
             _albumService = albumService;
             _mapper = mapper;
@@ -65,7 +65,23 @@ namespace SimpleGallery.API.Controllers
             var result = await _albumService.UpdateAsync(id, albums);
 
             if (!result.IsSuccess)
+            {
                 return BadRequest(result.Message);
+            }
+
+            var albumResource = _mapper.Map<Album, AlbumResource>(result.Value);
+            return Ok(albumResource);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(string id)
+        {
+            var result = await _albumService.DeleteAsync(id);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
 
             var albumResource = _mapper.Map<Album, AlbumResource>(result.Value);
             return Ok(albumResource);

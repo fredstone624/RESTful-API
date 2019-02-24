@@ -23,12 +23,17 @@ namespace SimpleGallery.API.Services
             return _imageRepository.ListAsync();
         }
 
-        public Task<SaveResponse<Image>> SaveAsync(Image value)
+        public Task<Response<Image>> SaveAsync(Image value)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SaveResponse<Image>> UpdateAsync(string id, Image value)
+        public Task<Response<Image>> UpdateAsync(string id, Image value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Response<Image>> DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }

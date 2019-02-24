@@ -33,5 +33,10 @@ namespace SimpleGallery.API.Persistence.Repositories
         {
             _context.Albums.Update(value);
         }
+
+        public void Remove(Album value)
+        {
+            _context.Albums.Remove(value);
+        }
     }
 }

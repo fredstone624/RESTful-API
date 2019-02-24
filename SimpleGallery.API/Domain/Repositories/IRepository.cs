@@ -10,5 +10,6 @@ namespace SimpleGallery.API.Domain.Repositories
         Task AddAsync(Tval value);
         Task<Tval> FindByIdAsync(Tkey id);
         void Update(Tval value);
+        void Remove(Tval value);
     }
 }
