@@ -3,8 +3,8 @@
     public class Photo
     {
         public string Id { get; set; }
-        public byte[] Image { get; set; }
-        public string ImageMimeType { get; set; }
+        public string ImageId { get; set; }
+        public Image Image { get; set; }
         public string AlbumId { get; set; }
         public Album Album { get; set; }
     }
