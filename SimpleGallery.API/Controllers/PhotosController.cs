@@ -17,7 +17,7 @@ namespace SimpleGallery.API.Controllers
 
         public PhotosController(IPhotoService photoService)
         {
-            this._photoService = photoService;
+            _photoService = photoService;
         }
 
         [HttpGet]

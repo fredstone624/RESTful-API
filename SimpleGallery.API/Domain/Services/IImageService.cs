@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SimpleGallery.API.Domain.Services
 {
-    interface IImageService
+    public interface IImageService
     {
         Task<IEnumerable<Image>> ListAsync();
     }
