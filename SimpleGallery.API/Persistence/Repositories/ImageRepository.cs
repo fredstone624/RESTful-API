@@ -18,5 +18,10 @@ namespace SimpleGallery.API.Persistence.Repositories
         {
             return await _context.Images.ToListAsync();
         }
+
+        public Task AddAsync(Image value)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

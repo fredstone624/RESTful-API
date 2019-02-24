@@ -40,6 +40,8 @@ namespace SimpleGallery.API
             services.AddScoped<IRepository<Image>, ImageRepository>();
             services.AddScoped<IImageService, ImageService>();
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddAutoMapper();
         }
 

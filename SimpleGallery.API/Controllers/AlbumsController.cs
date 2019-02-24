@@ -6,6 +6,7 @@ using SimpleGallery.API.Domain.Models;
 using SimpleGallery.API.Domain.Services;
 using SimpleGallery.API.Resources;
 using SimpleGallery.API.Extensions;
+using System.Linq;
 
 namespace SimpleGallery.API.Controllers
 {
@@ -36,7 +37,7 @@ namespace SimpleGallery.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState.GetErrorMessages());
+                return BadRequest(ModelState.GetErrorMessages().ToList());
             }
 
             var albums = _mapper.Map<SaveAlbumResource, Album>(resource);

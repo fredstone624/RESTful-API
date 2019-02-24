@@ -6,9 +6,8 @@ namespace SimpleGallery.API.Extensions
 {
     public static class ModelStateExtensions
     {
-        public static List<string> GetErrorMessages(this ModelStateDictionary dictionary) =>
+        public static IEnumerable<string> GetErrorMessages(this ModelStateDictionary dictionary) =>
             dictionary.SelectMany(m => m.Value.Errors)
-                .Select(m => m.ErrorMessage)
-                .ToList();
+                .Select(m => m.ErrorMessage);
     }
 }
