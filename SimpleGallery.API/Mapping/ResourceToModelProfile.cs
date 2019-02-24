@@ -9,6 +9,8 @@ namespace SimpleGallery.API.Mapping
         public ResourceToModelProfile()
         {
             CreateMap<SaveAlbumResource, Album>();
+            CreateMap<SavePhotoResource, Photo>();
+            CreateMap<SaveImageResource, Image>();
         }
     }
 }

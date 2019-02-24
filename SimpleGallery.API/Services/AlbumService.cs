@@ -24,14 +24,14 @@ namespace SimpleGallery.API.Services
             return _albumRepository.ListAsync();
         }
 
-        public async Task<Response<Album>> SaveAsync(Album album)
+        public async Task<Response<Album>> SaveAsync(Album value)
         {
             try
             {
-                await _albumRepository.AddAsync(album);
+                await _albumRepository.AddAsync(value);
                 await _unitOfWork.CompleteAsync();
 
-                return new Response<Album>(album);
+                return new Response<Album>(value);
             }
             catch (Exception ex)
             {
@@ -45,7 +45,7 @@ namespace SimpleGallery.API.Services
 
             if (existingAlbum == null)
             {
-                return new Response<Album>("Albums not found");
+                return new Response<Album>("Album's not found");
             }
 
             existingAlbum.Name = value.Name;
@@ -71,7 +71,7 @@ namespace SimpleGallery.API.Services
 
             if (existingAlbum == null)
             {
-                return new Response<Album>("Album not found");
+                return new Response<Album>("Album's not found");
             }
 
             try

@@ -4,7 +4,6 @@ using SimpleGallery.API.Domain.Services;
 using SimpleGallery.API.Domain.Services.Communication;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SimpleGallery.API.Services
@@ -12,30 +11,79 @@ namespace SimpleGallery.API.Services
     public class ImageService : IService<Image, string>
     {
         private readonly IRepository<Image, string> _imageRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ImageService(IRepository<Image, string> imageRepository)
+        public ImageService(IRepository<Image, string> imageRepository, IUnitOfWork unitOfWork)
         {
             _imageRepository = imageRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<IEnumerable<Image>> ListAsync()
+        public async Task<IEnumerable<Image>> ListAsync()
         {
-            return _imageRepository.ListAsync();
+            return await _imageRepository.ListAsync();
         }
 
-        public Task<Response<Image>> SaveAsync(Image value)
+        public async Task<Response<Image>> SaveAsync(Image value)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _imageRepository.AddAsync(value);
+                await _unitOfWork.CompleteAsync();
+
+                return new Response<Image>(value);
+            }
+            catch (Exception ex)
+            {
+                return new Response<Image>($"An error occurred when saving the image: {ex.Message}");
+            }
         }
 
-        public Task<Response<Image>> UpdateAsync(string id, Image value)
+        public async Task<Response<Image>> UpdateAsync(string id, Image value)
         {
-            throw new NotImplementedException();
+            var existingImage = await _imageRepository.FindByIdAsync(id);
+
+            if (existingImage == null)
+            {
+                return new Response<Image>("Image's not found");
+            }
+
+            Array.Copy(value.Bytes, existingImage.Bytes, value.Bytes.Length);
+            existingImage.MimeType = value.MimeType;
+
+            try
+            {
+                _imageRepository.Update(existingImage);
+                await _unitOfWork.CompleteAsync();
+
+                return new Response<Image>(existingImage);
+            }
+            catch (Exception ex)
+            {
+                return new Response<Image>($"An error occurred when updating the image: {ex.Message}");
+            }
         }
 
-        public Task<Response<Image>> DeleteAsync(string id)
+        public async Task<Response<Image>> DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            var existingImage = await _imageRepository.FindByIdAsync(id);
+
+            if (existingImage == null)
+            {
+                return new Response<Image>("Image's not found");
+            }
+
+            try
+            {
+                _imageRepository.Remove(existingImage);
+                await _unitOfWork.CompleteAsync();
+
+                return new Response<Image>(existingImage);
+            }
+            catch (Exception ex)
+            {
+                return new Response<Image>($"An error occurred when deleting the image: {ex.Message}");
+            }
         }
     }
 }
