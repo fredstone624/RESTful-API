@@ -11,9 +11,9 @@ namespace SimpleGallery.API.Services
 {
     public class ImageService : IService<Image>
     {
-        private readonly IRepository<Image> _imageRepository;
+        private readonly IRepository<Image, string> _imageRepository;
 
-        public ImageService(IRepository<Image> imageRepository)
+        public ImageService(IRepository<Image, string> imageRepository)
         {
             _imageRepository = imageRepository;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleGallery.API.Persistence.Repositories
 {
-    public class ImageRepository : BaseRepository, IRepository<Image>
+    public class ImageRepository : BaseRepository, IRepository<Image, string>
     {
         public ImageRepository(AppDbContext context)
             : base(context)
@@ -20,6 +20,16 @@ namespace SimpleGallery.API.Persistence.Repositories
         }
 
         public Task AddAsync(Image value)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Image> FindByIdAsync(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Update(Image value)
         {
             throw new System.NotImplementedException();
         }

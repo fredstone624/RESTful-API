@@ -10,10 +10,10 @@ namespace SimpleGallery.API.Services
 {
     public class AlbumService : IService<Album>
     {
-        private readonly IRepository<Album> _albumRepository;
+        private readonly IRepository<Album, string> _albumRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AlbumService(IRepository<Album> albumRepository, IUnitOfWork unitOfWork)
+        public AlbumService(IRepository<Album, string> albumRepository, IUnitOfWork unitOfWork)
         {
             _albumRepository = albumRepository;
             _unitOfWork = unitOfWork;

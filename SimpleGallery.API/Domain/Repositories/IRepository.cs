@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 
 namespace SimpleGallery.API.Domain.Repositories
 {
-    public interface IRepository<T> 
-        where T : class
+    public interface IRepository<Tval, Tkey> 
+        where Tval : class
     {
-        Task<IEnumerable<T>> ListAsync();
-        Task AddAsync(T value);
+        Task<IEnumerable<Tval>> ListAsync();
+        Task AddAsync(Tval value);
+        Task<Tval> FindByIdAsync(Tkey id);
+        void Update(Tval value);
     }
 }

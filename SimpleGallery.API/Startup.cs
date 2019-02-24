@@ -31,13 +31,13 @@ namespace SimpleGallery.API
                 options.UseInMemoryDatabase("supermarket-api-in-memory");
             });
 
-            services.AddScoped<IRepository<Album>, AlbumRepository>();
+            services.AddScoped<IRepository<Album, string>, AlbumRepository>();
             services.AddScoped<IService<Album>, AlbumService>();
 
-            services.AddScoped<IRepository<Photo>, PhotoRepository>();
+            services.AddScoped<IRepository<Photo, string>, PhotoRepository>();
             services.AddScoped<IService<Photo>, PhotoService>();
 
-            services.AddScoped<IRepository<Image>, ImageRepository>();
+            services.AddScoped<IRepository<Image, string>, ImageRepository>();
             services.AddScoped<IService<Image>, ImageService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
