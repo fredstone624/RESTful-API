@@ -24,6 +24,7 @@ namespace SimpleGallery.API.Persistence.Contexts
             builder.Entity<Album>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Album>().Property(p => p.Name).HasMaxLength(30);
             builder.Entity<Album>().Property(p => p.Description).HasMaxLength(50);
+            builder.Entity<Album>().Property(p => p.NumberOfVisitor).HasDefaultValue(0);
             builder.Entity<Album>().HasMany(p => p.Photos).WithOne(p => p.Album).HasForeignKey(p => p.AlbumId);
 
             builder.Entity<Album>().HasData

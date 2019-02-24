@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,8 @@ namespace SimpleGallery.API
 
             services.AddScoped<IRepository<Image>, ImageRepository>();
             services.AddScoped<IImageService, ImageService>();
+
+            services.AddAutoMapper();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SimpleGallery.API.Domain.Models;
 using SimpleGallery.API.Domain.Services;
+using SimpleGallery.API.Resources;
+using SimpleGallery.API.Extensions;
 
 namespace SimpleGallery.API.Controllers
 {
@@ -14,17 +14,32 @@ namespace SimpleGallery.API.Controllers
     public class AlbumsController : ControllerBase
     {
         private readonly IAlbumService _albumService;
+        private readonly IMapper _mapper;
 
-        public AlbumsController(IAlbumService albumService)
+        public AlbumsController(IAlbumService albumService, IMapper mapper)
         {
             _albumService = albumService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Album>> GetAllAsync()
+        public async Task<IEnumerable<AlbumResource>> GetAllAsync()
         {
             var albums = await _albumService.ListAsync();
-            return albums;
+            var resources = _mapper.Map<IEnumerable<Album>, IEnumerable<AlbumResource>>(albums);
+
+            return resources;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] SaveAlbumResource resource)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.GetErrorMessages());
+            }
+
+            var category = _mapper.Map<SaveAlbumResource, Album>(resource);
         }
     }
 }
