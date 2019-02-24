@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 
 namespace SimpleGallery.API.Domain.Models
 {
@@ -8,6 +8,6 @@ namespace SimpleGallery.API.Domain.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public ulong NumberOfVisitor { get; set; }
-        public IList<Photo> Photos { get; set; } = new List<Photo>();
+        public IQueryable<Photo> Photos { get; set; }
     }
 }

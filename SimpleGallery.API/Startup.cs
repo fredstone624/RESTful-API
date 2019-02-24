@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using SimpleGallery.API.Domain.Models;
+using SimpleGallery.API.Domain.Repositories;
+using SimpleGallery.API.Domain.Services;
+using SimpleGallery.API.Persistence.Contexts;
+using SimpleGallery.API.Persistence.Repositories;
+using SimpleGallery.API.Services;
 
 namespace SimpleGallery.API
 {
@@ -22,13 +22,24 @@ namespace SimpleGallery.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<AppDbContext>(options => {
+                options.UseInMemoryDatabase("supermarket-api-in-memory");
+            });
+
+            services.AddScoped<IRepository<Album>, AlbumRepository>();
+            services.AddScoped<IAlbumService, AlbumService>();
+
+            services.AddScoped<IRepository<Photo>, PhotoRepository>();
+            services.AddScoped<IPhotoService, PhotoService>();
+
+            services.AddScoped<IRepository<Image>, ImageRepository>();
+            services.AddScoped<IImageService, ImageService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

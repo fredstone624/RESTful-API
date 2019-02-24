@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SimpleGallery.API.Domain.Models;
+using System;
 
 namespace SimpleGallery.API.Persistence.Contexts
 {
@@ -29,6 +30,7 @@ namespace SimpleGallery.API.Persistence.Contexts
             (
                 new Album
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Name = "Album 1",
                     Description = "Desc 1",
                     NumberOfVisitor = 1
@@ -36,6 +38,7 @@ namespace SimpleGallery.API.Persistence.Contexts
 
                 new Album
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Name = "Album 2",
                     NumberOfVisitor = 2
                 }
@@ -44,7 +47,7 @@ namespace SimpleGallery.API.Persistence.Contexts
             builder.Entity<Photo>().ToTable("Photos");
             builder.Entity<Photo>().HasKey(p => p.Id);
             builder.Entity<Photo>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Photo>().HasOne(p => p.Image).WithOne(p => p.Photo);
+            builder.Entity<Photo>().HasOne(p => p.Image).WithOne(p => p.Photo).HasForeignKey<Image>(p => p.PhotoId);
 
             builder.Entity<Image>().ToTable("Images");
             builder.Entity<Image>().HasKey(p => p.Id);
