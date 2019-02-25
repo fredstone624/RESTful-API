@@ -16,7 +16,7 @@ namespace SimpleGallery.API.Persistence.Repositories
 
         public async Task<IEnumerable<Image>> ListAsync()
         {
-            return await _context.Images.Include(x => x.Photo).ToListAsync();
+            return await _context.Images.ToListAsync();
         }
 
         public async Task AddAsync(Image value)

@@ -26,7 +26,7 @@ namespace SimpleGallery.API.Persistence.Repositories
 
         public async Task<Photo> FindByIdAsync(string id)
         {
-            return await _context.Photos.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            return await _context.Photos.Include(x => x.Album).Include(x => x.Image).FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
         public void Update(Photo value)

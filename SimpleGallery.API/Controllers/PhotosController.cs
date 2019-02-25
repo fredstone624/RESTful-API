@@ -32,6 +32,20 @@ namespace SimpleGallery.API.Controllers
             return resources;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync(string id)
+        {
+            var result = await _photoService.FindAsync(id);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            var photoResource = _mapper.Map<Photo, PhotoResource>(result.Value);
+            return Ok(photoResource);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SavePhotoResource resource)
         {

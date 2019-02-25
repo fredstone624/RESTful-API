@@ -24,6 +24,18 @@ namespace SimpleGallery.API.Services
             return await _photoRepository.ListAsync();
         }
 
+        public async Task<Response<Photo>> FindAsync(string id)
+        {
+            var existingPhoto = await _photoRepository.FindByIdAsync(id);
+
+            if (existingPhoto == null)
+            {
+                return new Response<Photo>("Photo's not found");
+            }
+
+            return new Response<Photo>(existingPhoto);
+        }
+
         public async Task<Response<Photo>> SaveAsync(Photo value)
         {
             try
@@ -48,8 +60,8 @@ namespace SimpleGallery.API.Services
                 return new Response<Photo>("Photo's not found");
             }
 
-            //existingPhoto.AlbumId = value.AlbumId;
-            //existingPhoto.ImageId = value.ImageId;
+            existingPhoto.AlbumId = value.AlbumId;
+            existingPhoto.ImageId = value.ImageId;
 
             try
             {

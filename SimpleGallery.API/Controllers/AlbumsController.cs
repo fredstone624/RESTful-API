@@ -32,6 +32,20 @@ namespace SimpleGallery.API.Controllers
             return resources;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync(string id)
+        {
+            var result = await _albumService.FindAsync(id);
+
+            if(!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            var albumResource = _mapper.Map<Album, AlbumResource>(result.Value);
+            return Ok(albumResource);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveAlbumResource resource)
         {

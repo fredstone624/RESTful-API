@@ -24,6 +24,18 @@ namespace SimpleGallery.API.Services
             return _albumRepository.ListAsync();
         }
 
+        public async Task<Response<Album>> FindAsync(string id)
+        {
+            var existingAlbum = await _albumRepository.FindByIdAsync(id);
+
+            if (existingAlbum == null)
+            {
+                return new Response<Album>("Album's not found");
+            }
+
+            return new Response<Album>(existingAlbum);
+        }
+
         public async Task<Response<Album>> SaveAsync(Album value)
         {
             try

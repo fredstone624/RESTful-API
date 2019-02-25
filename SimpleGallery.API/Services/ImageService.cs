@@ -24,6 +24,18 @@ namespace SimpleGallery.API.Services
             return await _imageRepository.ListAsync();
         }
 
+        public async Task<Response<Image>> FindAsync(string id)
+        {
+            var existingImage = await _imageRepository.FindByIdAsync(id);
+
+            if (existingImage == null)
+            {
+                return new Response<Image>("Image's not found");
+            }
+
+            return new Response<Image>(existingImage);
+        }
+
         public async Task<Response<Image>> SaveAsync(Image value)
         {
             try

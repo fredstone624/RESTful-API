@@ -8,6 +8,7 @@ namespace SimpleGallery.API.Domain.Services
         where Tval : class
     {
         Task<IEnumerable<Tval>> ListAsync();
+        Task<Response<Tval>> FindAsync(Tkey id);
         Task<Response<Tval>> SaveAsync(Tval value);
         Task<Response<Tval>> UpdateAsync(Tkey id, Tval value);
         Task<Response<Tval>> DeleteAsync(Tkey id);
