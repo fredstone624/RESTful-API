@@ -60,8 +60,8 @@ namespace SimpleGallery.API.Services
                 return new Response<Image>("Image's not found");
             }
 
-            Array.Copy(value.Bytes, existingImage.Bytes, value.Bytes.Length);
-            existingImage.MimeType = value.MimeType;
+            existingImage.Url = value.Url;
+            existingImage.PhotoId = value.PhotoId;
 
             try
             {

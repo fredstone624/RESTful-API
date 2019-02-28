@@ -1,8 +1,7 @@
 ﻿namespace SimpleGallery.API.Domain.Models
 {
-    public class Photo
+    public class Photo : BaseModel
     {
-        public string Id { get; set; }
         public string ImageId { get; set; }
         public Image Image { get; set; }
         public string AlbumId { get; set; }

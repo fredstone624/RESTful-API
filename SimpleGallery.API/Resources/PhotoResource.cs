@@ -3,7 +3,7 @@
     public class PhotoResource
     {
         public string Id { get; set; }
-        public ImageResource Image { get; set; }
-        public AlbumResource Album { get; set; }
+        public string AlbumId { get; set; }
+        public string ImageId { get; set; }
     }
 }

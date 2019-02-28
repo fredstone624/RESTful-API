@@ -19,9 +19,9 @@ namespace SimpleGallery.API.Services
             _unitOfWork = unitOfWork;
         }
 
-        public Task<IEnumerable<Album>> ListAsync()
+        public async Task<IEnumerable<Album>> ListAsync()
         {
-            return _albumRepository.ListAsync();
+            return await _albumRepository.ListAsync();
         }
 
         public async Task<Response<Album>> FindAsync(string id)
@@ -62,7 +62,6 @@ namespace SimpleGallery.API.Services
 
             existingAlbum.Name = value.Name;
             existingAlbum.Description = value.Description;
-            existingAlbum.NumberOfVisitor = value.NumberOfVisitor;
 
             try
             {

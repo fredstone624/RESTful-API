@@ -27,9 +27,8 @@ namespace SimpleGallery.API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<AppDbContext>(options => {
-                options.UseInMemoryDatabase("supermarket-api-in-memory");
-            });
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             services.AddScoped<IRepository<Album, string>, AlbumRepository>();
             services.AddScoped<IService<Album, string>, AlbumService>();
